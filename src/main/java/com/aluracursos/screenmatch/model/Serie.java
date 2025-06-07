@@ -1,5 +1,6 @@
 package com.aluracursos.screenmatch.model;
 
+import com.aluracursos.screenmatch.principal.ConsultaGemini;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.util.OptionalDouble;
@@ -20,7 +21,7 @@ public class Serie {
         this.poster = datoSerie.poster();
         this.genero = Categoria.fromString(datoSerie.genero().split(",")[0].trim());
         this.actores = datoSerie.actores();
-        this.sinopsis = datoSerie.sinopsis();
+        this.sinopsis = ConsultaGemini.obtenerTraduccion(datoSerie.sinopsis());
     }
 
     public String getTitulo() {
