@@ -6,6 +6,7 @@ import com.aluracursos.screenmatch.model.Serie;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -82,6 +83,10 @@ public class Principal {
         serie = datosSeries.stream()
                 .map(d -> new Serie(d))
                 .collect(Collectors.toList());
+
+        serie.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
 
     }
 
