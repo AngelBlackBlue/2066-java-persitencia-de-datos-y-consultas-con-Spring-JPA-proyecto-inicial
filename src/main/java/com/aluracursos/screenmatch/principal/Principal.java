@@ -3,6 +3,7 @@ package com.aluracursos.screenmatch.principal;
 import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.model.DatosTemporadas;
 import com.aluracursos.screenmatch.model.Serie;
+import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 import java.util.ArrayList;
@@ -12,12 +13,17 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Principal {
+    private SerieRepository repository;
     private Scanner teclado = new Scanner(System.in);
     private ConsumoAPI consumoApi = new ConsumoAPI();
     private final String URL_BASE = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=812f93ca";
     private ConvierteDatos conversor = new ConvierteDatos();
     private List<DatosSerie> datosSeries = new ArrayList<>();
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void muestraElMenu() {
         var opcion = -1;
@@ -74,15 +80,19 @@ public class Principal {
     }
     private void buscarSerieWeb() {
         DatosSerie datos = getDatosSerie();
-        datosSeries.add(datos);
+        Serie serie = new Serie(datos);
+        repository.save(serie);
+//        datosSeries.add(datos);
         System.out.println(datos);
     }
 
     private void mostrarSeriesBuscadas() {
-        List<Serie> serie = new ArrayList<>();
-        serie = datosSeries.stream()
-                .map(d -> new Serie(d))
-                .collect(Collectors.toList());
+//        List<Serie> serie = new ArrayList<>();
+//        serie = datosSeries.stream()
+//                .map(d -> new Serie(d))
+//                .collect(Collectors.toList());
+
+        List<Serie> serie = repository.findAll();
 
         serie.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
