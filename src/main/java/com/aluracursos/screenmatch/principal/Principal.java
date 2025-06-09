@@ -6,10 +6,8 @@ import com.aluracursos.screenmatch.model.Serie;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -36,24 +34,28 @@ public class Principal {
                     0 - Salir
                     """;
             System.out.println(menu);
-            opcion = teclado.nextInt();
-            teclado.nextLine();
+            try {
+                opcion = teclado.nextInt(); // Intenta leer un número
+                teclado.nextLine(); // Limpia el buffer
 
-            switch (opcion) {
-                case 1:
-                    buscarSerieWeb();
-                    break;
-                case 2:
-                    buscarEpisodioPorSerie();
-                    break;
-                case 3:
-                    mostrarSeriesBuscadas();
-                    break;
-                case 0:
-                    System.out.println("Cerrando la aplicación...");
-                    break;
-                default:
-                    System.out.println("Opción inválida");
+                switch (opcion) {
+                    case 1:
+                        buscarSerieWeb();
+                        break;
+                    case 2:
+                        buscarEpisodioPorSerie();
+                        break;
+                    case 3:
+                        mostrarSeriesBuscadas();
+                        break;
+                    case 0:
+                        System.out.println("Cerrando la aplicación...");
+                        break;
+                    default:
+                        System.out.println("Opción inválida");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("¡Error! Debes ingresar un número.");
             }
         }
 
