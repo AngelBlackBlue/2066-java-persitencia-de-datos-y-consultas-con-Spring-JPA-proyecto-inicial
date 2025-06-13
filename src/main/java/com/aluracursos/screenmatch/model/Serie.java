@@ -118,6 +118,6 @@ public class Serie {
                 ", genero = " + genero +
                 ", actores = " + actores +
                 ", sinopsis = " + sinopsis +
-                ", Episodios = " + episodios;
+                ", episodios = " + episodios;
     }
 }
